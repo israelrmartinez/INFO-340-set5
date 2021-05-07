@@ -24,12 +24,26 @@ const ADDTASK = document.querySelector('#add-task');
 //You can test this function by logging out the returned item. You will need to
 //pass it an object representing a single task; you can pass it one of the
 //examples from the state (e.g., `state.taskList[0]`).
+
+//Finally, modify the `createTaskItemElement()` function so that each list item that 
+//is created is registered with a `'click'` event listener. This listener should 
+//have an anonymous callback function that "toggles" the task's `completed` 
+//property (swaps it from true to false and vice-versa), and then calls 
+//`renderTaskList()` again. This should allow you to cross items off your task 
+//list!
+//
+//Fun fact: this anonymous callback will utilize a **closure**, as the function
+//will be able to access the task variable when it is called on a click!
 function createTaskItemElement(taskObj) {
 	let task = document.createElement('li');
 	task.textContent = taskObj.description;
-	if (taskObj.complete == true) {
-		task.setAttribute('class', 'font-strike');
+	if (taskObj.complete) {
+		task.classList.add('font-strike');
 	}
+	task.addEventListener('click', function() {
+		task.classList.toggle('font-strike');
+	})
+
 	return task;
 }
 let obj = state.taskList;
@@ -124,19 +138,6 @@ function renderInput() {
 		ADDTASK.disabled = false;
 	}
 }
-
-
-//Finally, modify the `createTaskItemElement()` function so that each list item that 
-//is created is registered with a `'click'` event listener. This listener should 
-//have an anonymous callback function that "toggles" the task's `completed` 
-//property (swaps it from true to false and vice-versa), and then calls 
-//`renderTaskList()` again. This should allow you to cross items off your task 
-//list!
-//
-//Fun fact: this anonymous callback will utilize a **closure**, as the function
-//will be able to access the task variable when it is called on a click!
-
-
 
 
 //OPTIONAL EXTRA PRACTICE:
